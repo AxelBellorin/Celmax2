@@ -1,0 +1,54 @@
+///*Imprima cuanto empleados con el nombre "Ruiz" trabaja en la empresa*/
+
+            int cont = 0;
+
+            /*foreach (Empleados empleado in empleados)
+            {
+                if (empleado.Apellidos.ToUpper().Equals("RUIZ"))
+               {
+                   cont++;
+                }
+            }
+
+            //Utilizar Lambda
+
+            cont = empleados.Count(ap => ap.Apellidos.ToUpper().Equals("RUIZ"));
+
+           */
+
+            //utilizar LINQ
+
+            /*cont = (from emp in empleados
+                    where emp.Apellidos.ToUpper().Equals("RUIZ")
+                    select emp.Apellidos).Count();
+            */
+
+            cont = (from emp in empleados
+                    select emp).Count(empleado => empleado.Apellidos.ToUpper().Equals("RUIZ"));
+
+            Console.WriteLine("Hay {0} trabajadores en la lista", cont);
+        }
+
+        public void ContarAnas(List<Empleados> empleados)
+        {
+            var cont = empleados.Count(nombre => nombre.Nombres.ToUpper().Equals("ANA"));
+
+            Console.WriteLine("Hay {0} trabajadores en la lista que se llama Ana", cont);
+        }
+
+        public void promedioSalario(List<Empleados> empleados)
+        {
+            /*Imprima el promedio de los salarios de todas las personas que su nombre empieza y termina con 'A'*/
+
+            //Linq
+
+            var promedio = (from emp in empleados
+                            where char.ToUpper(emp.Nombres[0]) == 'A' && char.ToUpper(emp.Nombres[emp.Nombres.Length - 1]) == 'A'
+                            select emp.Salario).DefaultIfEmpty(0).Average();
+
+            if (promedio == 0)
+                Console.WriteLine("No hay trabajadores llamada Ana");
+            else
+                Console.WriteLine("El promedio de los salario es de " + promedio);
+
+        
